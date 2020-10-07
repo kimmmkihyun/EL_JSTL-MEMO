@@ -1,0 +1,55 @@
+화일 encoding 설정   :  preferences - utf-8로 변경
+xsd 화일만드는 법    :   webcontent -> other -> xml -> xml schema -> ***.xsd
+출력할 때 방법     :  apatch tomcat9.0 누르고  browse는 tomcat9.0폴더선택 후 finish   window  -> show view ->server ->포트번호는 9191
+
+
+
+Servlet life Cycle(서블릿 생명주기)
+1. 해당 서블릿 객체생성 : ( new HelloServlet() ) -> 생성자호출
+
+2. init() 호출(자동)  :  서블릿 생명주기에서 한번만 실행된다.  /  서블릿 초기화 작업을 수행
+
+3. service() 호출  - (숨어있다.)
+		get 요청 => doGet()호출
+		post 요청 => doPost()호출
+
+*3단계가 계속 반복된다.
+
+4. destroy() 호출 : 서블릿 화일 수정(변경) 작업 후 저장  or 서버 stop 했을 때 한번 호출된다.
+				-> 해당 서블릿 객체가 사라진다.
+					
+5. 실행 및 새로고침을 하면 다시 1단계로 간다.
+
+
+
+[Servlet 화일 실행방법]
+1. servlet.jsp 화일에서 실행
+
+2. Project명 클릭 후 마우스 오른쪽 -> run (실행) -> urlmapping 문자열을 url자리에 쓰기
+
+
+
+
+서블릿이란?
+ => java 클래스 형태의 웹 어플리케이션을 만들 수 있는 기술이다
+	HttpServlet을 상속받아 요청을 처리하는 클래스
+	main이 없다
+	컨테이너가 객체를 생성한다
+	
+	
+get 방식 요청
+1. url(주소창)에 직접 요청할 때
+2. 서블릿 화일에서 직접 실행할 때
+3. a태그 통한 요청	
+4. location 객체를 통한 요청
+5. form에서 method="get"으로 요청할 때
+
+
+
+@WebInitParam : 06 ThirdServlet 에서 나옴!  현재 서블릿이 요청되었을 때만 사용할 수 있는 변수를 설정하는 작업
+
+
+
+RequestDispatcher를 통해서 넘어가는 경우에는 그 전에 적용된 방식을 따라한다( doPost or doGet	)!!!
+=> 그렇기 때문에 doPost나 doGet 메서드 둘 중 한곳에만 요청을 할수 없다 
+=> process메서드를 만들고 doPost나 doGet 메서드에서 호출해서 그 다음 작업을 할 수 있도록 한다.
